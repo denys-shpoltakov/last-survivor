@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 using namespace std;
 
 enum MainMenu {
@@ -23,6 +24,10 @@ struct Character {
     int gold; // character's gold
 };
 
+// Character's characteristics
+Character player = {"None", 1, 1, 40, 100, 10, 100}; // name, level, xp, hp, damage, gold on start
+Character enemy = {"Headcrab", 0, 10, 30, 35, 5, 15}; // name, level, xp, hp, damage, gold
+
 void showInfoAboutCharacter(Character &info) {
     cout << "Name: " << info.name << " Level: " << info.level << " XP: " << info.xp << " HP: " << info.hp << " Damage: " << info.damage << " Gold: " << info.gold << endl;
 }
@@ -40,6 +45,10 @@ void restHealing(Character &player) {
         player.gold -= healCost;
         cout << "You were succesfully healed" << endl;
     }
+}
+
+void makeHit(Character &attacker, Character &victim) {
+    victim.hp -= attacker.damage;
 }
 
 void playGame(Character &player) {
@@ -66,20 +75,42 @@ void playGame(Character &player) {
             isPlaying = false;
 
         }
+        if (choice == GO_HUNT) {
+            int chance = rand() % 100;
+
+            if (chance < 70) {
+                cout << "You find an enemy: " << enemy.name << endl;
+                while (player.hp > 0 && enemy.hp > 0) {
+                    makeHit(player, enemy);
+                    if (enemy.hp > 0) {
+                        makeHit(enemy, player);
+                    }
+                    if (player.hp <= 0) {
+                        cout << "You lost" << endl;
+                        exit(0);
+                    }
+                    if (enemy.hp <= 0) {
+                        player.gold += enemy.gold;
+                        player.xp += enemy.xp;
+                        cout << "You killed a " << enemy.name << " and you got " << enemy.gold << " gold and XP: " << enemy.xp << endl;
+                    }
+                }
+                enemy.hp = enemy.maxHP;
+            } else if (chance < 90) {
+                int foundGold = (rand() % 15) + 5;
+                player.gold += foundGold;
+                cout << "You found a stash with " << foundGold << " gold!" << endl;
+            }
+        }
     }
 }
-
-
-// Character's characteristics
-Character player = {"None", 1, 1, 40, 100, 10, 100}; // name, level, xp, hp, damage, gold on start
-Character enemy = {"Headcrab", 0, 10, 30, 5, 15}; // name, level, xp, hp, damage, gold
 
 
 // custom name set function
 void setName(Character &player) {
     int choice;
 
-    cout << "Enter name to your character: ";
+    cout << ">> Enter name to your character: ";
     cin >> player.name; // set your character's name
 
     cout << "---> 1. Start Adventure <---" << endl;
@@ -110,7 +141,7 @@ void showMainMenu() {
     }
 }
 
-
 int main() {
+    srand(time(0)); // random on start
     showMainMenu();
 }
