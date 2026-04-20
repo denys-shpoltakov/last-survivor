@@ -25,7 +25,7 @@ struct Character {
 };
 
 // Character's characteristics
-Character player = {"None", 1, 1, 40, 100, 10, 100}; // name, level, xp, hp, damage, gold on start
+Character player = {"None", 1, 99, 40, 100, 10, 100}; // name, level, xp, hp, damage, gold on start
 Character enemy = {"Headcrab", 0, 10, 30, 35, 5, 15}; // name, level, xp, hp, damage, gold
 
 void showInfoAboutCharacter(Character &info) {
@@ -49,6 +49,17 @@ void restHealing(Character &player) {
 
 void makeHit(Character &attacker, Character &victim) {
     victim.hp -= attacker.damage;
+}
+
+void checkLevelUp(Character &player) {
+    // сколько нужно опыта для повышения уровня
+    int xpRequired = 100;
+
+    if (player.xp >= xpRequired) {
+        player.level++;
+        player.xp -= xpRequired;
+        cout << "LVL up! Your current lvl: " << player.level << " your XP: " << player.xp << endl;
+    }
 }
 
 void playGame(Character &player) {
@@ -93,6 +104,7 @@ void playGame(Character &player) {
                         player.gold += enemy.gold;
                         player.xp += enemy.xp;
                         cout << "You killed a " << enemy.name << " and you got " << enemy.gold << " gold and XP: " << enemy.xp << endl;
+                        checkLevelUp(player);
                     }
                 }
                 enemy.hp = enemy.maxHP;
