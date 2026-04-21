@@ -8,12 +8,14 @@ private:
     int hp, damage;
 
 public:
+    //================ CONSTRUCTOR ==================
     Character(string n, int h, int d) {
         name = n;
         hp = h;
         damage = d;
     }
 
+    //===================== SHOWING CHARACTER'S CHARACTERISTICS ============================
     void showInfo() {
         cout << "Name: ";
         cout << "--- " << name << " ---" << endl;
