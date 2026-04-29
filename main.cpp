@@ -11,7 +11,13 @@ protected: // это что-то среднее между public или private
 public:
     virtual void takeDamage(int damage) {
         m_health -= damage;
-        cout << m_name << " got " << damage << " HP: " << m_health << endl; 
+        if (m_health < 0) {
+            m_health = 0;
+            cout << m_name << " got " << damage << " damage!" << " HP: " << m_health << endl;
+            // die function
+        } else {
+            cout << m_name << " got " << damage << " HP: " << m_health << endl;
+        }
     }
 
     string getName() {
@@ -25,7 +31,7 @@ public:
 
 class Player : public BaseEntity {
 public:
-    Player() : BaseEntity("Gordon", 20, 100) {} // собираем игрока с именем: Gordon, с уроном: 20, с единицами здоровья: 100
+    Player() : BaseEntity("Gordon", 30, 100) {} // собираем игрока с именем: Gordon, с уроном: 20, с единицами здоровья: 100
 
     void attack(BaseEntity* target) override {
         cout << m_name << " attacks a: " << target->getName() << " and dealing: " << m_damage << " damage!" << endl;
