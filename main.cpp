@@ -20,7 +20,7 @@ public:
         }
     }
 
-    string getName() {
+    string getName() const {
         return m_name;
     }
 
@@ -64,4 +64,5 @@ int main() {
     BaseEntity* Enemy = new Zombie();
     Enemy->talk();
     Gordon->attack(Enemy);
+    delete Enemy;
 }
