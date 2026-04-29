@@ -7,4 +7,6 @@ protected: // это что-то среднее между public или private
     string m_name; // имя сущности
     int m_damage; // урон сущности
     BaseEntity(string name, int damage) : m_name(name), m_damage(damage) {} // Можно создавать только "детей". Это защищает от ошибок, когда ты случайно спавнишь в мире "объект-пустышку"
+public:
+    virtual void talk() = 0; // визуальная функция, которая делает класс абстрактным
 };
