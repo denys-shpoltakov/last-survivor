@@ -9,6 +9,7 @@ protected: // это что-то среднее между public или private
     BaseEntity(string name, int damage) : m_name(name), m_damage(damage) {} // Можно создавать только "детей". Это защищает от ошибок, когда ты случайно спавнишь в мире "объект-пустышку"
 public:
     virtual void talk() = 0; // визуальная функция, которая делает класс абстрактным
+    virtual ~BaseEntity() {} // виртуальный диструктор. он необходим для корректного удаления производных объектов через указатель на базовый класс
 };
 
 class Player : public BaseEntity {
@@ -19,3 +20,19 @@ public:
         cout << "Hello World!" << endl;   
     }
 };
+
+class Zombie : public BaseEntity {
+public:
+    Zombie() : BaseEntity("Headcrab", 10) {}
+
+    void talk() override {
+        cout << "Headcrab sound" << endl;
+    }
+};
+
+
+int main() {
+    BaseEntity* Gordon = new Player();
+    Gordon->talk();
+    BaseEntity* Enemy = new Zombie();
+}
