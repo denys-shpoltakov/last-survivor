@@ -9,7 +9,7 @@ protected: // это что-то среднее между public или private
     int m_health; // здоровье сущности
     BaseEntity(string name, int damage, int health) : m_name(name), m_damage(damage), m_health(health) {} // Можно создавать только "детей". Это защищает от ошибок, когда ты случайно спавнишь в мире "объект-пустышку"
 public:
-    virtual void takeDamage(int damage) {
+    virtual void takeDamage(int damage) { // в параметр передаем урон, дальше мы туда передадим урон нашей сущности у которой будет вызываться эта функция
         m_health -= damage;
         if (m_health < 0) {
             m_health = 0;
