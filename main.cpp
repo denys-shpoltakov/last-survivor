@@ -10,3 +10,12 @@ protected: // это что-то среднее между public или private
 public:
     virtual void talk() = 0; // визуальная функция, которая делает класс абстрактным
 };
+
+class Player : public BaseEntity {
+public:
+    Player() : BaseEntity("Gordon", 20) {}
+
+    void talk() override {
+        cout << "Hello World!" << endl;   
+    }
+};
