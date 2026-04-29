@@ -11,7 +11,7 @@ protected: // это что-то среднее между public или private
 public:
     virtual void takeDamage(int damage) { // в параметр передаем урон, дальше мы туда передадим урон нашей сущности у которой будет вызываться эта функция
         m_health -= damage;
-        if (m_health < 0) {
+        if (m_health <= 0) {
             m_health = 0;
             cout << m_name << " got " << damage << " damage!" << " HP: " << m_health << endl;
             // die function
