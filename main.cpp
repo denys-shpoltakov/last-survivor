@@ -20,8 +20,8 @@ public:
         }
     }
 
-    virtual void heal() {
-        m_health += 25;
+    virtual void heal(int amount) {
+        m_health += amount;
         if (m_health >= 100) {
             m_health = 100;
             cout << "You have full HP! No need to heal" << endl;
