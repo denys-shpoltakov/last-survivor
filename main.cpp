@@ -20,6 +20,16 @@ public:
         }
     }
 
+    virtual void heal() {
+        m_health += 25;
+        if (m_health >= 100) {
+            m_health = 100;
+            cout << "You have full HP! No need to heal" << endl;
+        } else {
+            cout << "You have been healed! Your current HP: " << m_health << endl;
+        }
+    }
+
     string getName() const {
         return m_name;
     }
@@ -64,5 +74,6 @@ int main() {
     BaseEntity* Enemy = new Zombie();
     Enemy->talk();
     Gordon->attack(Enemy);
+    Gordon->heal();
     delete Enemy;
 }
