@@ -30,11 +30,13 @@ public:
             cout << "You have been healed! Your current HP: " << m_health << endl;
         }
     }
-
+    
+    // метод для получения имени сущности
     string getName() const {
         return m_name;
     }
 
+    // метод для получения ХП
     int getHP() const {
         return m_health;
     }
