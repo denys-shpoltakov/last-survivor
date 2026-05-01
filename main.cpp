@@ -35,14 +35,27 @@ public:
         return m_name;
     }
 
+    // метод для атаки
     virtual void attack(BaseEntity* target) = 0;
+    // метод разговора
     virtual void talk() = 0; // визуальная функция, которая делает класс абстрактным
     virtual ~BaseEntity() {} // виртуальный диструктор. он необходим для корректного удаления производных объектов через указатель на базовый класс
 };
 
 class Player : public BaseEntity {
+private:
+    int m_xp = 0; // начальное кол-во xp - 0.
+    int m_level = 1; // начальный уровень - 1. 
+
 public:
     Player() : BaseEntity("Gordon", 30, 100, 100) {} // собираем игрока с именем: Gordon, с уроном: 20, с единицами здоровья: 100 и с максимальным здоровьем - 100
+
+    void lvlUp() {
+        m_level++; // повышаем уровень на 1
+        m_damage += 2; // повышаем урон на 2
+        m_health += 2; // повышаем здоровье на 2
+        m_maxHP += 2; // повышаем максимальное здоровье на 2
+    }
 
     void attack(BaseEntity* target) override {
         cout << m_name << " attacks a: " << target->getName() << " and dealing: " << m_damage << " damage!" << endl;
@@ -50,7 +63,7 @@ public:
     }
 
     void talk() override {
-        cout << "Hello World!" << endl;   
+        cout << "..." << endl; // твоё молчание - убивает.   
     }
 };
 
