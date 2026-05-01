@@ -35,6 +35,10 @@ public:
         return m_name;
     }
 
+    int getHP() const {
+        return m_health;
+    }
+
     // метод для атаки
     virtual void attack(BaseEntity* target) = 0;
     // метод разговора
