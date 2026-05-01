@@ -7,8 +7,8 @@ protected: // это что-то среднее между public или private
     string m_name; // имя сущности
     int m_damage; // урон сущности
     int m_health; // здоровье сущности
-    int m_maxHP; // максимальное здоровье сущности
-    BaseEntity(string name, int damage, int health, int maxHP) : m_name(name), m_damage(damage), m_health(health), m_maxHP(maxHP) {} // Можно создавать только "детей". Это защищает от ошибок, когда ты случайно спавнишь в мире "объект-пустышку"
+    int m_maxHealth; // максимальное здоровье сущности
+    BaseEntity(string name, int damage, int health, int maxHealth) : m_name(name), m_damage(damage), m_health(health), m_maxHealth(maxHealth) {} // Можно создавать только "детей". Это защищает от ошибок, когда ты случайно спавнишь в мире "объект-пустышку"
 public:
     virtual void takeDamage(int damage) { // в параметр передаем урон, дальше мы туда передадим урон нашей сущности у которой будет вызываться эта функция
         m_health -= damage;
@@ -23,14 +23,14 @@ public:
 
     virtual void heal(int amount) {
         m_health += amount;
-        if (m_health >= 100) {
+        if (m_health >= m_maxHealth) {
             m_health = 100;
             cout << "You have full HP! No need to heal" << endl;
         } else {
             cout << "You have been healed! Your current HP: " << m_health << endl;
         }
     }
-    
+
     // метод для получения имени сущности
     string getName() const {
         return m_name;
@@ -60,7 +60,7 @@ public:
         m_level++; // повышаем уровень на 1
         m_damage += 2; // повышаем урон на 2
         m_health += 2; // повышаем здоровье на 2
-        m_maxHP += 2; // повышаем максимальное здоровье на 2
+        m_maxHealth += 2; // повышаем максимальное здоровье на 2
     }
 
     void attack(BaseEntity* target) override {
