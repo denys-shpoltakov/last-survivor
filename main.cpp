@@ -7,7 +7,8 @@ protected: // это что-то среднее между public или private
     string m_name; // имя сущности
     int m_damage; // урон сущности
     int m_health; // здоровье сущности
-    BaseEntity(string name, int damage, int health) : m_name(name), m_damage(damage), m_health(health) {} // Можно создавать только "детей". Это защищает от ошибок, когда ты случайно спавнишь в мире "объект-пустышку"
+    int m_maxHP; // максимальное здоровье сущности
+    BaseEntity(string name, int damage, int health, int maxHP) : m_name(name), m_damage(damage), m_health(health), m_maxHP(maxHP) {} // Можно создавать только "детей". Это защищает от ошибок, когда ты случайно спавнишь в мире "объект-пустышку"
 public:
     virtual void takeDamage(int damage) { // в параметр передаем урон, дальше мы туда передадим урон нашей сущности у которой будет вызываться эта функция
         m_health -= damage;
@@ -41,7 +42,7 @@ public:
 
 class Player : public BaseEntity {
 public:
-    Player() : BaseEntity("Gordon", 30, 100) {} // собираем игрока с именем: Gordon, с уроном: 20, с единицами здоровья: 100
+    Player() : BaseEntity("Gordon", 30, 100, 100) {} // собираем игрока с именем: Gordon, с уроном: 20, с единицами здоровья: 100 и с максимальным здоровьем - 100
 
     void attack(BaseEntity* target) override {
         cout << m_name << " attacks a: " << target->getName() << " and dealing: " << m_damage << " damage!" << endl;
@@ -55,7 +56,7 @@ public:
 
 class Zombie : public BaseEntity {
 public:
-    Zombie() : BaseEntity("Headcrab", 10, 20) {}
+    Zombie() : BaseEntity("Headcrab", 10, 20, 20) {}
 
     void attack(BaseEntity* target) override {
         cout << m_name << " attacks a: " << target->getName() << " and dealing: " << m_damage << " damage!" << endl;
@@ -74,6 +75,6 @@ int main() {
     BaseEntity* Enemy = new Zombie();
     Enemy->talk();
     Gordon->attack(Enemy);
-    Gordon->heal();
+    Gordon->heal(25);
     delete Enemy;
 }
