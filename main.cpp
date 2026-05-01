@@ -24,7 +24,7 @@ public:
     virtual void heal(int amount) {
         m_health += amount;
         if (m_health >= m_maxHealth) {
-            m_health = 100;
+            m_health = m_maxHealth;
             cout << "You have full HP! No need to heal" << endl;
         } else {
             cout << "You have been healed! Your current HP: " << m_health << endl;
@@ -45,6 +45,7 @@ public:
     virtual void attack(BaseEntity* target) = 0;
     // метод разговора
     virtual void talk() = 0; // визуальная функция, которая делает класс абстрактным
+    virtual void lvlUp() {} // визуальная функция
     virtual ~BaseEntity() {} // виртуальный диструктор. он необходим для корректного удаления производных объектов через указатель на базовый класс
 };
 
