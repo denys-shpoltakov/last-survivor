@@ -62,6 +62,7 @@ public:
         m_damage += 2; // повышаем урон на 2
         m_health += 2; // повышаем здоровье на 2
         m_maxHealth += 2; // повышаем максимальное здоровье на 2
+        heal(m_maxHealth); // и регенирируем полностью персонажа при повышении уровня
     }
 
     void attack(BaseEntity* target) override {
