@@ -89,13 +89,51 @@ public:
     }
 };
 
+void gamePlay(BaseEntity* player, BaseEntity* enemy) {
+    bool isRunning = true;
+    int choice;
+
+    cout << "FIGHT IS STARTING!" << endl;
+
+    while (isRunning) {
+        if (player->getHP() <= 0) {
+            cout << "You died!" << endl; // печатаем текст поражения в консоль
+            // заканчиваем игру
+            isRunning = false; 
+            break;
+        }
+
+        if (enemy->getHP() <= 0) {
+            cout << "You win!" << endl; // печатаем текст победы в консоль
+            player->lvlUp(); // вызываем метод для игрока повышения уровня
+        }
+
+        cout << "Choose your action:" << endl;
+        cout << "1. Attack enemy" << endl;
+        cout << "2. Heal" << endl;
+        cout << "3. Quit" << endl;
+        cout << "Enter your choose 1/3: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            // fighting system
+        }
+
+        if (choice == 2) {
+            player->heal(25);
+        }
+
+        if (choice == 3) {
+            cout << "Quiting..." << endl;
+            exit(0); // выходим из программы
+        }
+    }
+}
 
 int main() {
     BaseEntity* Gordon = new Player();
-    Gordon->talk();
     BaseEntity* Enemy = new Zombie();
-    Enemy->talk();
-    Gordon->attack(Enemy);
-    Gordon->heal(25);
+    gamePlay(Gordon, Enemy);
+    delete Gordon;
     delete Enemy;
 }
