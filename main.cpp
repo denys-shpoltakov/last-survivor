@@ -134,4 +134,6 @@ int main() {
     BaseEntity* Gordon = new Player();
     BaseEntity* Enemy = new Zombie();
     gamePlay(Gordon, Enemy);
+    delete Gordon;
+    delete Enemy;
 }
