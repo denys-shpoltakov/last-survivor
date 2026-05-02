@@ -1,15 +1,6 @@
 #include <iostream>
 using namespace std;
 
-void gamePlay() {
-    bool isRunning = true;
-    int choice;
-
-    while (isRunning) {
-        // геймплей
-    }
-}
-
 class BaseEntity {
     // по началу тут будет только два атрибута, имя сущности и урон сущности
 protected: // это что-то среднее между public или private, классы и его дети видят атрибуты, а main() - нет 
@@ -98,14 +89,28 @@ public:
     }
 };
 
+void gamePlay(BaseEntity* player, BaseEntity* enemy) {
+    bool isRunning = true;
+    int choice;
+
+    cout << "FIGHT IS STARTING!" << endl;
+
+    while (isRunning) {
+        if (player->getHP() <= 0) {
+            cout << "You died!" << endl;
+            isRunning = false;
+            break;
+        }
+
+        if (enemy->getHP() <= 0) {
+            cout << "You win!" << endl;
+            player->lvlUp();
+        }
+    }
+}
 
 int main() {
     BaseEntity* Gordon = new Player();
-    Gordon->talk();
     BaseEntity* Enemy = new Zombie();
-    Enemy->talk();
-    Gordon->attack(Enemy);
-    Gordon->heal(25);
-    delete Enemy;
-    delete Gordon;
+    gamePlay(Gordon, Enemy);
 }
