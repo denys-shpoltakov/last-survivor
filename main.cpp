@@ -106,6 +106,8 @@ void gamePlay(BaseEntity* player, BaseEntity* enemy) {
         if (enemy->getHP() <= 0) {
             cout << "You win!" << endl; // печатаем текст победы в консоль
             player->lvlUp(); // вызываем метод для игрока повышения уровня
+            isRunning = false;
+            break;
         }
 
         cout << "Choose your action:" << endl;
