@@ -1,6 +1,15 @@
 #include <iostream>
 using namespace std;
 
+void gamePlay() {
+    bool isRunning = true;
+    int choice;
+
+    while (isRunning) {
+        // геймплей
+    }
+}
+
 class BaseEntity {
     // по началу тут будет только два атрибута, имя сущности и урон сущности
 protected: // это что-то среднее между public или private, классы и его дети видят атрибуты, а main() - нет 
@@ -98,4 +107,5 @@ int main() {
     Gordon->attack(Enemy);
     Gordon->heal(25);
     delete Enemy;
+    delete Gordon;
 }
