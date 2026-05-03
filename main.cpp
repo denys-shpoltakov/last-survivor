@@ -45,6 +45,7 @@ public:
     virtual void attack(BaseEntity* target) = 0;
     // метод разговора
     virtual void talk() = 0; // визуальная функция, которая делает класс абстрактным
+    virtual void die() = 0; // визуальная функция
     virtual void lvlUp() {} // Player её переопределит, а остальные просто проигнорируют.
     virtual ~BaseEntity() {} // виртуальный диструктор. он необходим для корректного удаления производных объектов через указатель на базовый класс
 };
@@ -73,6 +74,10 @@ public:
     void talk() override {
         cout << "..." << endl; // твоё молчание - убивает.   
     }
+    
+    void die() override {
+        cout << "You died!" << endl;
+    }
 };
 
 class Zombie : public BaseEntity {
@@ -86,6 +91,10 @@ public:
 
     void talk() override {
         cout << "Headcrab sound" << endl;
+    }
+    
+    void die() override {
+        cout << "Enemy died!" << endl;
     }
 };
 
@@ -118,7 +127,15 @@ void gamePlay(BaseEntity* player, BaseEntity* enemy) {
         cin >> choice;
 
         if (choice == 1) {
-            // fighting system
+            while (player->getHP() > 0 && enemy->getHP() > 0) {
+                enemy->attack(player);
+                player->attack(enemy);
+                    if (player->getHP() <= 0) {
+                        player->die();
+                    } else if (enemy->getHP() <= 0) {
+                        enemy->die();
+                    }
+            }
         }
 
         if (choice == 2) {
