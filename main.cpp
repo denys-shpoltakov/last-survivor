@@ -22,12 +22,18 @@ public:
     }
 
     virtual void heal(int amount) {
-        m_health += amount;
         if (m_health >= m_maxHealth) {
             m_health = m_maxHealth;
             cout << "You have full HP! No need to heal" << endl;
+        }
+
+        m_health += amount;
+
+        if (m_health > m_maxHealth) {
+            m_health = m_maxHealth;
+            cout << m_name << " HP has been recovered to maximum. Your current HP: " << m_health << endl;
         } else {
-            cout << "You have been healed! Your current HP: " << m_health << endl;
+            cout << m_name  << " has been healed by " << amount << ". Current HP: " << m_health << endl;
         }
     }
 
@@ -64,6 +70,9 @@ public:
         m_health += 2; // повышаем здоровье на 2
         m_maxHealth += 2; // повышаем максимальное здоровье на 2
         heal(m_maxHealth); // и регенирируем полностью персонажа при повышении уровня
+        cout << "LVL Up! Your damage and health now is: " << endl;
+        cout << "Damage: " << m_damage << endl;
+        cout << "Health: " << m_health << endl;
     }
 
     void attack(BaseEntity* target) override {
@@ -127,15 +136,8 @@ void gamePlay(BaseEntity* player, BaseEntity* enemy) {
         cin >> choice;
 
         if (choice == 1) {
-            while (player->getHP() > 0 && enemy->getHP() > 0) {
-                enemy->attack(player);
-                player->attack(enemy);
-                    if (player->getHP() <= 0) {
-                        player->die();
-                    } else if (enemy->getHP() <= 0) {
-                        enemy->die();
-                    }
-            }
+            player->attack(enemy);
+            enemy->attack(player);
         }
 
         if (choice == 2) {
