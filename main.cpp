@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 using namespace std;
 
 class BaseEntity {
@@ -15,7 +16,7 @@ public:
         if (m_health <= 0) {
             m_health = 0;
             cout << m_name << " got " << damage << " damage!" << " HP: " << m_health << endl;
-            // die function
+            die();
         } else {
             cout << m_name << " got " << damage << " HP: " << m_health << endl;
         }
